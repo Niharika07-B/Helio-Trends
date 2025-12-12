@@ -1,0 +1,202 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "TMDB Trending API (Netflix Proxy)",
+    "version": "1.0.0",
+    "description": "The Movie Database API for trending movies and TV shows"
+  },
+  "servers": [
+    {
+      "url": "https://api.themoviedb.org/3",
+      "description": "TMDB API"
+    }
+  ],
+  "paths": {
+    "/trending/movie/day": {
+      "get": {
+        "summary": "Daily Trending Movies",
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "schema": { "type": "string", "default": "en-US" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trending movies data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": { "type": "integer" },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "integer" },
+                          "title": { "type": "string" },
+                          "overview": { "type": "string" },
+                          "popularity": { "type": "number" },
+                          "vote_average": { "type": "number" },
+                          "vote_count": { "type": "integer" },
+                          "release_date": { "type": "string" },
+                          "genre_ids": {
+                            "type": "array",
+                            "items": { "type": "integer" }
+                          },
+                          "adult": { "type": "boolean" },
+                          "backdrop_path": { "type": "string" },
+                          "poster_path": { "type": "string" }
+                        }
+                      }
+                    },
+                    "total_pages": { "type": "integer" },
+                    "total_results": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trending/tv/day": {
+      "get": {
+        "summary": "Daily Trending TV Shows",
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "schema": { "type": "string", "default": "en-US" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trending TV shows data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "page": { "type": "integer" },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "integer" },
+                          "name": { "type": "string" },
+                          "overview": { "type": "string" },
+                          "popularity": { "type": "number" },
+                          "vote_average": { "type": "number" },
+                          "vote_count": { "type": "integer" },
+                          "first_air_date": { "type": "string" },
+                          "genre_ids": {
+                            "type": "array",
+                            "items": { "type": "integer" }
+                          },
+                          "adult": { "type": "boolean" },
+                          "backdrop_path": { "type": "string" },
+                          "poster_path": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/genre/movie/list": {
+      "get": {
+        "summary": "Movie Genre List",
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "schema": { "type": "string", "default": "en-US" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Genre mapping data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "genres": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "integer" },
+                          "name": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/genre/tv/list": {
+      "get": {
+        "summary": "TV Genre List",
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "schema": { "type": "string", "default": "en-US" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "TV genre mapping data"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "query",
+        "name": "api_key"
+      }
+    }
+  }
+}

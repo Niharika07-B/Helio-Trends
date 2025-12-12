@@ -1,0 +1,51 @@
+{
+  "mcpServers": {
+    "helio-trends-solar": {
+      "command": "node",
+      "args": ["./mcp-solar-server.js"],
+      "cwd": "./kiro/specs/helio-trends",
+      "env": {
+        "NASA_API_KEY": "DEMO_KEY",
+        "NOAA_BASE_URL": "https://services.swpc.noaa.gov/json"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "fetch_kp_index",
+        "fetch_solar_wind",
+        "fetch_geomagnetic_activity",
+        "get_solar_activity_level"
+      ]
+    },
+    "helio-trends-netflix": {
+      "command": "node", 
+      "args": ["./mcp-netflix-server.js"],
+      "cwd": "./kiro/specs/helio-trends",
+      "env": {
+        "TMDB_API_KEY": "your_tmdb_api_key_here",
+        "TMDB_BASE_URL": "https://api.themoviedb.org/3"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "fetch_trending_movies",
+        "fetch_trending_tv",
+        "get_genre_popularity",
+        "calculate_trending_score"
+      ]
+    },
+    "helio-trends-correlator": {
+      "command": "node",
+      "args": ["./mcp-correlation-server.js"], 
+      "cwd": "./kiro/specs/helio-trends",
+      "env": {
+        "DATABASE_PATH": "./helio-trends.db"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "calculate_correlation",
+        "detect_anomalies", 
+        "generate_insights",
+        "get_historical_data"
+      ]
+    }
+  }
+}

@@ -1,0 +1,327 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', sans-serif;
+    --font-space: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply antialiased overflow-x-hidden;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-800/50;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-600/50 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-500/70;
+  }
+
+  /* Custom slider styling */
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  }
+
+  .slider::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  }
+}
+
+@layer components {
+  /* Glass morphism components */
+  .glass {
+    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  }
+
+  .glass-dark {
+    @apply bg-black/20 backdrop-blur-md border border-white/10;
+  }
+
+  .card-glass {
+    @apply glass-dark rounded-xl p-6 shadow-glass transition-all duration-300 hover:bg-black/30;
+  }
+
+  .glass-solar {
+    @apply bg-gradient-to-br from-solar-500/20 to-solar-600/10 backdrop-blur-md border border-solar-400/30;
+  }
+
+  .glass-netflix {
+    @apply bg-gradient-to-br from-netflix-600/20 to-netflix-700/10 backdrop-blur-md border border-netflix-500/30;
+  }
+
+  /* Card components */
+  .card {
+    @apply glass rounded-xl p-6 shadow-glass transition-all duration-300 hover:bg-white/15;
+  }
+
+  .card-solar {
+    @apply glass-solar rounded-xl p-6 shadow-glow-md transition-all duration-300 hover:shadow-glow-lg;
+  }
+
+  .card-netflix {
+    @apply glass-netflix rounded-xl p-6 shadow-lg transition-all duration-300 hover:shadow-xl;
+  }
+
+  /* Button components */
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply btn bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500;
+  }
+
+  .primary-400 {
+    @apply text-blue-400;
+  }
+
+  .btn-solar {
+    @apply btn bg-solar-gradient hover:shadow-glow-md text-white focus:ring-solar-500;
+  }
+
+  .btn-netflix {
+    @apply btn bg-netflix-gradient hover:shadow-lg text-white focus:ring-netflix-500;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent hover:bg-white/10 text-slate-300 hover:text-white border border-slate-600 hover:border-slate-400;
+  }
+
+  /* Status indicators */
+  .status-indicator {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .status-online {
+    @apply status-indicator bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400;
+  }
+
+  .status-warning {
+    @apply status-indicator bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400;
+  }
+
+  .status-error {
+    @apply status-indicator bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400;
+  }
+
+  /* Metric cards */
+  .metric-card {
+    @apply card hover:scale-105 cursor-pointer;
+  }
+
+  .metric-card-solar {
+    @apply card-solar hover:scale-105 cursor-pointer;
+  }
+
+  .metric-card-netflix {
+    @apply card-netflix hover:scale-105 cursor-pointer;
+  }
+
+  /* Chart containers */
+  .chart-container {
+    @apply card min-h-[300px] flex flex-col;
+  }
+
+  .chart-container-solar {
+    @apply card-solar min-h-[300px] flex flex-col;
+  }
+
+  .chart-container-netflix {
+    @apply card-netflix min-h-[300px] flex flex-col;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    @apply glass-dark border-r border-white/10 transition-all duration-300;
+  }
+
+  .sidebar-item {
+    @apply flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-white/10 cursor-pointer;
+  }
+
+  .sidebar-item.active {
+    @apply bg-white/15 text-white;
+  }
+
+  /* Notification panel */
+  .notification {
+    @apply glass rounded-lg p-4 border-l-4 animate-slide-up;
+  }
+
+  .notification-info {
+    @apply notification border-l-blue-500;
+  }
+
+  .notification-warning {
+    @apply notification border-l-yellow-500;
+  }
+
+  .notification-error {
+    @apply notification border-l-red-500;
+  }
+
+  .notification-success {
+    @apply notification border-l-green-500;
+  }
+
+  /* Loading states */
+  .skeleton {
+    @apply animate-pulse bg-slate-700/50 rounded;
+  }
+
+  .loading-spinner {
+    @apply animate-spin rounded-full border-2 border-slate-600 border-t-white;
+  }
+
+  /* 3D Canvas container */
+  .canvas-container {
+    @apply relative overflow-hidden rounded-xl;
+  }
+
+  /* Glow effects */
+  .glow-solar {
+    @apply shadow-glow-md;
+  }
+
+  .glow-netflix {
+    @apply shadow-lg shadow-netflix-500/20;
+  }
+
+  /* Text gradients */
+  .text-gradient-solar {
+    @apply bg-solar-gradient bg-clip-text text-transparent;
+  }
+
+  .text-gradient-netflix {
+    @apply bg-netflix-gradient bg-clip-text text-transparent;
+  }
+
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent;
+  }
+
+  /* Animations */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .animate-flare {
+    animation: flare 1.5s ease-out infinite;
+  }
+
+  /* Theme transitions */
+  .theme-transition {
+    @apply transition-all duration-500 ease-in-out;
+  }
+}
+
+@layer utilities {
+  /* Custom utilities */
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Backdrop filters */
+  .backdrop-blur-xs {
+    backdrop-filter: blur(2px);
+  }
+
+  /* Custom grid */
+  .grid-dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* Responsive text */
+  .text-responsive {
+    @apply text-sm sm:text-base md:text-lg lg:text-xl;
+  }
+
+  /* Hover effects */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:-translate-y-1;
+  }
+
+  .hover-glow {
+    @apply transition-shadow duration-200 hover:shadow-glow-md;
+  }
+}
+
+/* Custom animations for Three.js components */
+@keyframes rotate3d {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.rotate-3d {
+  animation: rotate3d 20s linear infinite;
+}
+
+/* Recharts custom styles */
+.recharts-tooltip-wrapper {
+  @apply backdrop-blur-sm;
+}
+
+.recharts-default-tooltip {
+  @apply glass-dark rounded-lg shadow-xl !important;
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  @apply stroke-slate-600/30;
+}
+
+/* Custom focus styles */
+.focus-visible {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2 ring-offset-slate-900;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
