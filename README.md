@@ -112,28 +112,36 @@ A cutting-edge real-time dashboard that analyzes the relationship between solar 
 - **Alerts Panel** - Real-time event notifications
 - **AI Insights** - Emotional tone analysis
 
-## 🚀 Deploy to Vercel
+## 🚀 Deploy to GitHub Pages
+
+### Automatic Deployment
+This repository is configured for automatic deployment to GitHub Pages using GitHub Actions.
+
+1. **Fork this repository**
+2. **Add Repository Secrets** (Settings → Secrets and variables → Actions):
+   ```
+   NASA_API_KEY=your_nasa_api_key_here
+   TMDB_API_KEY=your_tmdb_api_key_here
+   TMDB_BEARER_TOKEN=your_tmdb_bearer_token_here
+   ```
+3. **Enable GitHub Pages** (Settings → Pages):
+   - Source: Deploy from a branch
+   - Branch: gh-pages
+4. **Push to main branch** - Deployment happens automatically!
+
+### Live Demo
+🌐 **https://niharika07-b.github.io/Helio-Trends/**
+
+### Manual Build for GitHub Pages
+```bash
+npm run build
+npm run deploy
+```
+
+## 🚀 Alternative: Deploy to Vercel
 
 ### One-Click Deploy
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Niharika07-B/Helio-Trends&env=NASA_API_KEY,TMDB_API_KEY,TMDB_BEARER_TOKEN)
-
-### Manual Deployment
-1. Fork this repository
-2. Sign up at [vercel.com](https://vercel.com)
-3. Connect your GitHub account
-4. Import the `Helio-Trends` repository
-5. Add environment variables:
-   - `NASA_API_KEY`
-   - `TMDB_API_KEY` 
-   - `TMDB_BEARER_TOKEN`
-6. Deploy!
-
-### Environment Variables for Vercel
-```bash
-NASA_API_KEY=your_nasa_api_key_here
-TMDB_API_KEY=your_tmdb_api_key_here
-TMDB_BEARER_TOKEN=your_tmdb_bearer_token_here
-```
 
 ## 🔧 Development
 
