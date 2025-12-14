@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
-const TMDB_BEARER_TOKEN = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+const TMDB_BEARER_TOKEN = process.env.TMDB_BEARER_TOKEN;
 const TMDB_BASE_URL = process.env.NEXT_PUBLIC_TMDB_BASE_URL || 'https://api.themoviedb.org/3';
 
 // Genre mapping for TMDB
