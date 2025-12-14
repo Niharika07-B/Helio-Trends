@@ -3,31 +3,20 @@
 import { motion } from 'framer-motion';
 import { 
   RefreshCw, 
-  Bell, 
-  Wifi,
-  WifiOff
+  Bell
 } from 'lucide-react';
 import { useDashboardStore } from '@/stores/dashboardStore';
 import { useTheme } from '@/providers/ThemeProvider';
 import ThemeSelector from './ThemeSelector';
-import ClientTime from './ui/ClientTime';
 
 export default function Header() {
   const { 
-    lastSyncTime, 
     isLoading, 
     syncData, 
-    notifications, 
-    unreadCount,
-    isConnected
+    unreadCount
   } = useDashboardStore();
   
   const { currentTheme } = useTheme();
-
-  const getLastUpdateText = () => {
-    if (!lastSyncTime) return 'Never';
-    return 'relative-time'; // Will be handled by ClientTime component
-  };
 
 
 
@@ -56,9 +45,6 @@ export default function Header() {
 
           {/* Right Section - Controls */}
           <div className="flex items-center space-x-4">
-            
-
-
             {/* Theme Selector */}
             <ThemeSelector />
 
