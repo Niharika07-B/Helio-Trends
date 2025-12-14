@@ -1,43 +1,6 @@
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 
-// Helper function to calculate correlations client-side
-function calculateCorrelations(solarData: SolarData, netflixData: NetflixData): CorrelationData {
-  // Simple correlation calculation based on activity levels
-  const solarActivity = solarData.kpIndex;
-  const netflixActivity = netflixData.aggregatedScore;
-  
-  // Mock correlation coefficient (in real app, you'd calculate this properly)
-  const coefficient = (Math.sin(solarActivity) * Math.cos(netflixActivity / 10)) * 0.3 + (Math.random() - 0.5) * 0.4;
-  
-  const strength = Math.abs(coefficient) > 0.7 ? 'STRONG' : 
-                   Math.abs(coefficient) > 0.4 ? 'MODERATE' : 'WEAK';
-  
-  const genreCorrelations: Record<string, number> = {};
-  netflixData.topGenres.forEach(genre => {
-    genreCorrelations[genre.name] = (Math.random() - 0.5) * 0.6;
-  });
-  
-  return {
-    coefficient: parseFloat(coefficient.toFixed(3)),
-    strength,
-    significance: Math.abs(coefficient) * 100,
-    genreCorrelations,
-    anomalies: solarData.activityLevel === 'HIGH' || solarData.activityLevel === 'EXTREME' ? [{
-      timestamp: new Date().toISOString(),
-      type: 'solar_spike',
-      description: `Unusual ${solarData.activityLevel.toLowerCase()} solar activity detected`,
-      confidence: 0.85
-    }] : [],
-    insights: [
-      `Solar activity (Kp: ${solarData.kpIndex}) shows ${strength.toLowerCase()} correlation with streaming trends`,
-      `Top trending genre "${netflixData.topGenres[0]?.name || 'Unknown'}" may be influenced by space weather`,
-      `${solarData.solarFlares.length} solar flares detected in recent data`
-    ],
-    lastCalculated: new Date().toISOString()
-  };
-}
-
 export interface SolarData {
   kpIndex: number;
   estimatedKp: number;
@@ -321,34 +284,45 @@ export const useDashboardStore = create<DashboardState>()(
     },
 
     syncData: async () => {
-      const { setLoading, setError, setSolarData, setNetflixData, setCorrelationData, updateLastSyncTime, setConnected } = get();
+      const { setLoading, setError, setSolarData, setNetflixData, setCorrelationData, updateLastSyncTime } = get();
       
       setLoading(true);
       setError(null);
       
       try {
-        // Import the client API service dynamically
-        const { ClientApiService } = await import('@/services/clientApiService');
+        // Fetch all data in parallel using server-side API routes
+        const [solarResponse, netflixResponse] = await Promise.all([
+          fetch('/api/solar-data'),
+          fetch('/api/netflix-data'),
+        ]);
         
-        // Fetch all data in parallel using client-side service
+        if (!solarResponse.ok || !netflixResponse.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        
         const [solarData, netflixData] = await Promise.all([
-          ClientApiService.fetchSolarData(),
-          ClientApiService.fetchNetflixData(),
+          solarResponse.json(),
+          netflixResponse.json(),
         ]);
         
         setSolarData(solarData);
         setNetflixData(netflixData);
         
-        // Calculate correlations client-side
-        const correlationData = calculateCorrelations(solarData, netflixData);
-        setCorrelationData(correlationData);
+        // Calculate correlations using server-side API
+        const correlationResponse = await fetch('/api/correlations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ solarData, netflixData }),
+        });
         
-        setConnected(true);
+        if (correlationResponse.ok) {
+          const correlationData = await correlationResponse.json();
+          setCorrelationData(correlationData);
+        }
+        
         updateLastSyncTime();
       } catch (error) {
-        console.error('Sync error:', error);
-        setError(error instanceof Error ? error.message : 'Failed to fetch data');
-        setConnected(false);
+        setError(error instanceof Error ? error.message : 'Unknown error occurred');
       } finally {
         setLoading(false);
       }

@@ -2,19 +2,13 @@
 const nextConfig = {
   images: {
     domains: ['image.tmdb.org'],
-    unoptimized: true, // Required for static export
   },
   env: {
-    NEXT_PUBLIC_NASA_API_KEY: process.env.NEXT_PUBLIC_NASA_API_KEY || 'DEMO_KEY',
-    NEXT_PUBLIC_TMDB_API_KEY: process.env.NEXT_PUBLIC_TMDB_API_KEY,
-    NEXT_PUBLIC_TMDB_BEARER_TOKEN: process.env.NEXT_PUBLIC_TMDB_BEARER_TOKEN,
+    NASA_API_KEY: process.env.NASA_API_KEY || 'DEMO_KEY',
+    TMDB_API_KEY: process.env.TMDB_API_KEY,
+    TMDB_BEARER_TOKEN: process.env.TMDB_BEARER_TOKEN,
     NOAA_API_BASE: 'https://services.swpc.noaa.gov/json',
   },
-  // GitHub Pages configuration
-  output: 'export',
-  trailingSlash: true,
-  basePath: process.env.NODE_ENV === 'production' ? '/Helio-Trends' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/Helio-Trends/' : '',
   
   async headers() {
     return [
