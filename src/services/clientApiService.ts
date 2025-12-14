@@ -5,15 +5,35 @@
 const NASA_API_KEY = process.env.NEXT_PUBLIC_NASA_API_KEY || 'DEMO_KEY';
 const TMDB_BEARER_TOKEN = process.env.NEXT_PUBLIC_TMDB_BEARER_TOKEN;
 
+// Debug logging for environment variables
+console.log('Environment check:', {
+  hasNasaKey: !!NASA_API_KEY && NASA_API_KEY !== 'DEMO_KEY',
+  hasTmdbToken: !!TMDB_BEARER_TOKEN,
+  nasaKeyLength: NASA_API_KEY?.length || 0,
+  tmdbTokenLength: TMDB_BEARER_TOKEN?.length || 0
+});
+
 export class ClientApiService {
   // NASA Solar Data
   static async fetchSolarData() {
     try {
+      console.log('Fetching solar data with NASA API key:', NASA_API_KEY?.substring(0, 8) + '...');
+      
       const [flareResponse, cmeResponse, kpResponse] = await Promise.all([
         fetch(`https://api.nasa.gov/DONKI/FLR?startDate=2024-01-01&api_key=${NASA_API_KEY}`),
         fetch(`https://api.nasa.gov/DONKI/CME?startDate=2024-01-01&api_key=${NASA_API_KEY}`),
         fetch('https://services.swpc.noaa.gov/json/planetary_k_index_1m.json')
       ]);
+
+      console.log('API Response status:', {
+        flares: flareResponse.status,
+        cmes: cmeResponse.status,
+        kp: kpResponse.status
+      });
+
+      if (!flareResponse.ok || !cmeResponse.ok || !kpResponse.ok) {
+        throw new Error(`API request failed: ${flareResponse.status}, ${cmeResponse.status}, ${kpResponse.status}`);
+      }
 
       const [flares, cmes, kpData] = await Promise.all([
         flareResponse.json(),
@@ -56,6 +76,12 @@ export class ClientApiService {
   // TMDB Netflix-like Data
   static async fetchNetflixData() {
     try {
+      console.log('Fetching TMDB data with bearer token:', TMDB_BEARER_TOKEN?.substring(0, 8) + '...');
+      
+      if (!TMDB_BEARER_TOKEN) {
+        throw new Error('TMDB Bearer Token not found');
+      }
+
       const [moviesResponse, tvResponse] = await Promise.all([
         fetch('https://api.themoviedb.org/3/trending/movie/day', {
           headers: {
@@ -70,6 +96,15 @@ export class ClientApiService {
           }
         })
       ]);
+
+      console.log('TMDB Response status:', {
+        movies: moviesResponse.status,
+        tv: tvResponse.status
+      });
+
+      if (!moviesResponse.ok || !tvResponse.ok) {
+        throw new Error(`TMDB API request failed: ${moviesResponse.status}, ${tvResponse.status}`);
+      }
 
       const [moviesData, tvData] = await Promise.all([
         moviesResponse.json(),

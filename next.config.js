@@ -5,8 +5,9 @@ const nextConfig = {
     unoptimized: true, // Required for static export
   },
   env: {
-    NASA_API_KEY: process.env.NASA_API_KEY || 'DEMO_KEY',
-    TMDB_API_KEY: process.env.TMDB_API_KEY,
+    NEXT_PUBLIC_NASA_API_KEY: process.env.NEXT_PUBLIC_NASA_API_KEY || 'DEMO_KEY',
+    NEXT_PUBLIC_TMDB_API_KEY: process.env.NEXT_PUBLIC_TMDB_API_KEY,
+    NEXT_PUBLIC_TMDB_BEARER_TOKEN: process.env.NEXT_PUBLIC_TMDB_BEARER_TOKEN,
     NOAA_API_BASE: 'https://services.swpc.noaa.gov/json',
   },
   // GitHub Pages configuration
