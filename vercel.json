@@ -2,10 +2,5 @@
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "env": {
-    "NASA_API_KEY": "@nasa_api_key",
-    "TMDB_API_KEY": "@tmdb_api_key", 
-    "TMDB_BEARER_TOKEN": "@tmdb_bearer_token"
-  }
+  "installCommand": "npm install"
 }

@@ -61,12 +61,18 @@ class NetflixDataService {
   }
 
   private async fetchTrendingMovies(): Promise<any> {
-    if (!this.TMDB_API_KEY) {
-      throw new Error('TMDB API key not configured');
+    if (!this.TMDB_BEARER_TOKEN) {
+      throw new Error('TMDB Bearer Token not configured');
     }
 
     const response = await fetch(
-      `${this.TMDB_BASE_URL}/trending/movie/day?api_key=${this.TMDB_API_KEY}&language=en-US`
+      `${this.TMDB_BASE_URL}/trending/movie/day?language=en-US`,
+      {
+        headers: {
+          'Authorization': `Bearer ${this.TMDB_BEARER_TOKEN}`,
+          'Content-Type': 'application/json'
+        }
+      }
     );
     
     if (!response.ok) {
@@ -77,12 +83,18 @@ class NetflixDataService {
   }
 
   private async fetchTrendingTV(): Promise<any> {
-    if (!this.TMDB_API_KEY) {
-      throw new Error('TMDB API key not configured');
+    if (!this.TMDB_BEARER_TOKEN) {
+      throw new Error('TMDB Bearer Token not configured');
     }
 
     const response = await fetch(
-      `${this.TMDB_BASE_URL}/trending/tv/day?api_key=${this.TMDB_API_KEY}&language=en-US`
+      `${this.TMDB_BASE_URL}/trending/tv/day?language=en-US`,
+      {
+        headers: {
+          'Authorization': `Bearer ${this.TMDB_BEARER_TOKEN}`,
+          'Content-Type': 'application/json'
+        }
+      }
     );
     
     if (!response.ok) {
