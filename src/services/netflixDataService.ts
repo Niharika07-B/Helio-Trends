@@ -1,7 +1,7 @@
 import { NetflixData } from '@/hooks/useDataFetcher';
 
 class NetflixDataService {
-  private readonly TMDB_BEARER_TOKEN = process.env.TMDB_BEARER_TOKEN;
+  private readonly TMDB_BEARER_TOKEN = process.env.TMDB_BEARER_TOKEN || process.env.NEXT_PUBLIC_TMDB_API_KEY;
   private readonly TMDB_BASE_URL = 'https://api.themoviedb.org/3';
   
   // Genre ID to name mapping
