@@ -1,0 +1,47 @@
+{
+  "mcpServers": {
+    "nasa-solar-weather": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch@latest"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "INFO",
+        "BASE_URL": "https://api.nasa.gov/DONKI",
+        "API_KEY": "DEMO_KEY"
+      },
+      "disabled": false,
+      "autoApprove": ["fetch_solar_flares", "fetch_cme_data", "fetch_geomagnetic_storms"]
+    },
+    "tmdb-trending": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch@latest"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "INFO",
+        "BASE_URL": "https://api.themoviedb.org/3",
+        "API_KEY": "your_tmdb_api_key_here"
+      },
+      "disabled": false,
+      "autoApprove": ["fetch_trending_movies", "fetch_trending_tv", "fetch_genre_data"]
+    },
+    "noaa-space-weather": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch@latest"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "INFO",
+        "BASE_URL": "https://services.swpc.noaa.gov/json",
+        "API_KEY": ""
+      },
+      "disabled": false,
+      "autoApprove": ["fetch_kp_index", "fetch_solar_wind", "fetch_planetary_k_index"]
+    },
+    "data-processor": {
+      "command": "uvx",
+      "args": ["mcp-server-sqlite@latest"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "INFO",
+        "DATABASE_PATH": "./helio-trends.db"
+      },
+      "disabled": false,
+      "autoApprove": ["create_tables", "insert_data", "query_correlations", "cache_api_data"]
+    }
+  }
+}
