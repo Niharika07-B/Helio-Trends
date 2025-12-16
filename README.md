@@ -1,4 +1,4 @@
-# 🌞 HelioTrends Dashboard
+# 🌞 HelioTrends Dashboard 
 
 > **Exploring the fascinating correlation between solar activity and streaming trends**
 
