@@ -1,5 +1,5 @@
 # 🌞 HelioTrends Dashboard 
-
+ 
 > **Exploring the fascinating correlation between solar activity and streaming trends**
 
 A cutting-edge real-time dashboard that analyzes the relationship between solar weather events and Netflix trending content, featuring advanced AI insights, predictions, and interactive visualizations.
