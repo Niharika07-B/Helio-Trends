@@ -7,7 +7,7 @@ A cutting-edge real-time dashboard that analyzes the relationship between solar 
 ![HelioTrends Dashboard](https://img.shields.io/badge/Status-Live-brightgreen) ![Next.js](https://img.shields.io/badge/Next.js-14-black) ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue) ![Tailwind](https://img.shields.io/badge/Tailwind-3-cyan)
 
 ## ✨ Features
- 
+  
 ### 🔥 **Core Functionality**
 - **Real-time Solar Data** - Live solar weather from NASA & NOAA APIs
 - **Netflix Trends Analysis** - Trending content via TMDB API
